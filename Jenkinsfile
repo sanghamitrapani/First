@@ -1,6 +1,5 @@
 pipeline{
   agent any
-  stages{
       stage('Checkout Source code'){
         steps{
         git url:'https://github.com/nogiboina/Jenkins-Project.git'
@@ -35,5 +34,4 @@ pipeline{
         }
           }
       }
-}
 }
