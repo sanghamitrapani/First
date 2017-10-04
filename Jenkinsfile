@@ -6,7 +6,7 @@ pipeline {
       steps {
         withEnv( ["PATH+MAVEN=${tool maven}/bin"] ) {
         sh 'mvn --version'
-        sh "mvn clean package"
+        sh "mvn clean install"
       }
     }
   }
