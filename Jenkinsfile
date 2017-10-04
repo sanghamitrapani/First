@@ -12,13 +12,15 @@ pipeline {
                 '''
             }
     }
-    stage('build') {
-       steps {
-        withEnv( ["PATH+MAVEN=${tool maven}/bin"] ) {
-        sh 'mvn --version'
-        sh "mvn clean install"
-      }
-    }
-  }
+    stage ('Build') {
+            steps {
+                sh 'mvn -Dmaven.test.failure.ignore=true install'
+            }
+            post {
+                success {
+                    junit 'target/surefire-reports/**/*.xml'
+                }
+            }
+        }
 }
 }
