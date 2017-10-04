@@ -1,37 +1,11 @@
-pipeline{
-  agent any
-      stage('Checkout Source code'){
-        steps{
-        git url:'https://github.com/nogiboina/Jenkins-Project.git'
-        }
-      }
-      stage('Compile Stage'){
-        steps{
-        withMaven(maven : 'M2_HOME'){
-        sh 'mvn clean compile'
-        }
-      }
-    }
-      stage('Testing Stage'){
-        steps{
-        withMaven(maven : 'M2_HOME')
-        {
-        sh 'mvn test'
-         }
-        }
-    }
-      stage('Package Stage'){
-        steps{
-        withMaven(maven : 'M2_HOME'){
+pipeline {
+  agent { any 'maven:3.5.0' }
+  stages {
+    stage('build') {
+      steps {
+        sh 'mvn --version'
         sh 'mvn install'
-        }
-          }
       }
-      stage('Package Stage'){
-        steps{
-        withMaven(maven : 'M2_HOME'){
-        sh 'mvn deploy'
-        }
-          }
-      }
+    }
+  }
 }
