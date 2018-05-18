@@ -17,6 +17,11 @@ stages {
          '''
       }
     }
+stage ('Testing Checkout') {
+steps{
+sh 'echo "Before taking the Checkout the code from GITHUB"'
+}
+}
 stage ('Build') {
   steps {
     sh 'mvn -Dmaven.test.failure.ignore=true install'
