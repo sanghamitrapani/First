@@ -2,7 +2,7 @@ pipeline {
   agent any
     tools{
     maven 'maven-3.5.0'
-    jdk 'JDK1.7'
+    jdk 'jdk1.7.0_75'
      }
 // using the Timestamper plugin we can add timestamps to the console log
 options {
@@ -17,18 +17,18 @@ stages {
          '''
       }
     }
-stage ('Testing Checkout') {
+stage ('Checkout Code base from GIT') {
 steps{
-sh 'echo "Before taking the Checkout the code from GITHUB"'
+		sh 'echo "Before taking the Checkout the code from GITHUB"'
+	}
 }
-}
-stage ('Build') {
+stage ('Build the code using Maven') {
   steps {
-    sh 'mvn -Dmaven.test.failure.ignore=true install'
+    sh 'mvn clean compile install'
     }
     post {
       success {
-        junit 'target/surefire-reports/**/*.xml'
+         archiveArtifacts '**/*.jar'
             }
          }
     }
